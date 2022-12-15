@@ -1,0 +1,5 @@
+button.c:19:5:is_pressed	16	static
+button.c:27:5:is_pressed_3s	16	static
+button.c:35:5:is_button_released	16	static
+button.c:47:6:read_input	16	static
+button.c:74:6:fsm_for_button	16	static
