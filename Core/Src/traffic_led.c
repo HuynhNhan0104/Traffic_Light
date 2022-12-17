@@ -62,9 +62,6 @@ void turn_off_traffic_led_2(){
 	HAL_GPIO_WritePin(D5_GPIO_Port, D5_Pin, RESET);
 }
 
-
-
-
 void blinking_led_traffic(int state){
 	if(is_timer_timeout( TIMER_BLINKING_LED )){
 		if(is_on){
