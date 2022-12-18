@@ -24,6 +24,7 @@ void turn_on_buzzer(){
 
 void turn_off_buzzer(){
 	freq = 0;
+	time = 0;
 	buzzer_flag = 0;
 	clear_timer(TIMER_BUZZER);
 }
