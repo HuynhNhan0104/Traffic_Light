@@ -16,11 +16,17 @@
 #include "global.h"
 
 
+
+
+
+
 //buzzer
 extern int time;
 extern int freq;
 extern int buzzer_flag;
 extern int is_buzzer_active;
+extern int safe_time;
+extern int step;
 
 void turn_on_buzzer();
 void turn_off_buzzer();

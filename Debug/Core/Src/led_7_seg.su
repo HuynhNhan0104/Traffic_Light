@@ -1,0 +1,2 @@
+led_7_seg.c:12:6:update_buffer_high	16	static
+led_7_seg.c:17:6:update_buffer_low	16	static

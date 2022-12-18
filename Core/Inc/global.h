@@ -78,5 +78,4 @@ extern int state_led_traffic_2;
 
 
 
-extern int cycle_buzzer;
 #endif /* INC_GLOBAL_H_ */
