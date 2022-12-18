@@ -122,7 +122,7 @@ void fsm_system_run(){
 				state_led_traffic_2 = RED;
 				turn_on_traffic_led_2(state_led_traffic_2);
 
-				is_on = 0;
+				is_led_ON= 0;
 				set_timer(TIMER_BLINKING_LED, 500);
 				buffer_duration_time = duration_time_of_RED;
 
@@ -156,7 +156,7 @@ void fsm_system_run(){
 				state_led_traffic_2 = YELLOW;
 				turn_on_traffic_led_2(state_led_traffic_2);
 
-				is_on = 0;
+				is_led_ON= 0;
 				set_timer(TIMER_BLINKING_LED, 500);
 				buffer_duration_time = duration_time_of_YELLOW;
 
@@ -187,7 +187,7 @@ void fsm_system_run(){
 				state_led_traffic_2 = GREEN;
 				turn_on_traffic_led_2(state_led_traffic_2);
 
-				is_on = 0;
+				is_led_ON= 0;
 				set_timer(TIMER_BLINKING_LED, 500);
 				buffer_duration_time = duration_time_of_GREEN;
 

@@ -22,7 +22,13 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "button.h"
+#include "timer.h"
+#include "traffic_led.h"
+#include "fsm_traffic.h"
+#include  "global.h"
+#include "pedestrian.h"
+#include "led_7_seg.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,6 +65,7 @@ static void MX_TIM3_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+void control_buzzer();
 /* USER CODE END 0 */
 
 /**
@@ -92,13 +99,24 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-
+HAL_TIM_Base_Start_IT(&htim2);
+HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+mode = INIT_SYSTEM;
+
+
+
   while (1)
   {
+
+	  fsm_for_button();
+	  fsm_system_run();
+	  fsm_pedestrian_run();
+	 control_buzzer();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -152,7 +170,6 @@ static void MX_TIM2_Init(void)
 {
 
   /* USER CODE BEGIN TIM2_Init 0 */
-
 
   /* USER CODE END TIM2_Init 0 */
 
@@ -296,7 +313,41 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	timer_run();
+	read_input();
 
+}
+int buffer_freq = 0;
+int buffer_time = 0;
+void control_buzzer(){
+	if(buzzer_flag == 1){
+		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 1000 - freq);
+		if(is_timer_timeout(TIMER_BUZZER)){
+			if(is_buzzer_active){
+				buffer_freq  = freq;
+				buffer_time = time;
+				freq = 0;
+				is_buzzer_active = 0;
+			}
+			else{
+				if(buffer_freq  <= 600) freq = buffer_freq + 100;
+				else  freq  = buffer_freq;
+
+				if(buffer_time > 100) time = buffer_time - 50;
+				else  time = buffer_time;
+
+				is_buzzer_active = 1;
+			}
+			set_timer(TIMER_BUZZER,  time );
+		}
+	}
+	else{
+		buffer_freq = 0;
+		buffer_time = 0;
+		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 1000);
+	}
+}
 /* USER CODE END 4 */
 
 /**

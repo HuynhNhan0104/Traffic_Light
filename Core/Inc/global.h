@@ -43,7 +43,7 @@ extern int mode;
 
 #define TIMER_PEDESTRIAN												7
 
-
+#define TIMER_BUZZER													8
 
 //SINGLE LED OF TRAFFIC
 

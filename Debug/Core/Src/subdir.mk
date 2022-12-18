@@ -8,6 +8,7 @@ C_SRCS += \
 ../Core/Src/button.c \
 ../Core/Src/fsm_traffic.c \
 ../Core/Src/global.c \
+../Core/Src/led_7_seg.c \
 ../Core/Src/main.c \
 ../Core/Src/pedestrian.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
@@ -22,6 +23,7 @@ OBJS += \
 ./Core/Src/button.o \
 ./Core/Src/fsm_traffic.o \
 ./Core/Src/global.o \
+./Core/Src/led_7_seg.o \
 ./Core/Src/main.o \
 ./Core/Src/pedestrian.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
@@ -36,6 +38,7 @@ C_DEPS += \
 ./Core/Src/button.d \
 ./Core/Src/fsm_traffic.d \
 ./Core/Src/global.d \
+./Core/Src/led_7_seg.d \
 ./Core/Src/main.d \
 ./Core/Src/pedestrian.d \
 ./Core/Src/stm32f1xx_hal_msp.d \

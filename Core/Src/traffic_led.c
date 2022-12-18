@@ -8,7 +8,7 @@
 
 #include "traffic_led.h"
 
-int is_on = 0;
+int is_led_ON = 0;
 
 
 void turn_on_traffic_led_1(int state){
@@ -64,15 +64,15 @@ void turn_off_traffic_led_2(){
 
 void blinking_led_traffic(int state){
 	if(is_timer_timeout( TIMER_BLINKING_LED )){
-		if(is_on){
+		if(is_led_ON){
 			turn_on_traffic_led_1(state);
 			turn_on_traffic_led_2(state);
-			is_on = 0;
+			is_led_ON= 0;
 		}
 		else{
 			turn_off_traffic_led_1();
 			turn_off_traffic_led_2();
-			is_on = 1;
+			is_led_ON = 1;
 		}
 		set_timer(TIMER_BLINKING_LED, 500);
 	}

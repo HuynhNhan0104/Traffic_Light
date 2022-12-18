@@ -15,7 +15,7 @@
 #include "button.h"
 
 
-extern int is_on;
+extern int is_led_ON;
 void turn_on_traffic_led_1(int state);
 void turn_off_traffic_led_1();
 void turn_on_traffic_led_2(int state);

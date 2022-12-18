@@ -16,9 +16,11 @@
 #include "global.h"
 
 
+//buzzer
+extern int time;
 extern int freq;
 extern int buzzer_flag;
-extern int tik_tek;
+extern int is_buzzer_active;
 
 void turn_on_buzzer();
 void turn_off_buzzer();

@@ -1,0 +1,5 @@
+traffic_led.c:14:6:turn_on_traffic_led_1	16	static
+traffic_led.c:33:6:turn_off_traffic_led_1	8	static
+traffic_led.c:38:6:turn_on_traffic_led_2	16	static
+traffic_led.c:60:6:turn_off_traffic_led_2	8	static
+traffic_led.c:65:6:blinking_led_traffic	16	static

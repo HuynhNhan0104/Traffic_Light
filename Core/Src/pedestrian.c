@@ -10,13 +10,15 @@ int state_of_pedestrian = OFF_PEDESTRIAN;
 int freq = 0;
 int buzzer_flag = 0;
 int safe_time = 3000;
+int time = 0;
 
-int tik_tek = 1;
+int is_buzzer_active= 1;
 
 void turn_on_buzzer(){
 	freq = 200;
+	time = 500;
 	buzzer_flag = 1;
-	set_timer(TIMER_BUZZER, 500);
+	set_timer(TIMER_BUZZER, time);
 }
 
 
