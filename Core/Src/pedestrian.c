@@ -12,26 +12,23 @@ int cycle_of_pedestrian = 20000;
 
 
 
-int freq = 0;
+int pulse_width = 0;
 int buzzer_flag = 0;
 int safe_time = 5000;
-int time = 0;
-int step = 1;
-
-
+int time_of_buzzer = 0;
 
 int is_buzzer_active= 1;
 
 void turn_on_buzzer(){
-	freq = 500;
-	time = 300;
+	pulse_width = 500;
+	time_of_buzzer = 300;
 	buzzer_flag = 1;
-	set_timer(TIMER_BUZZER, time);
+	set_timer(TIMER_BUZZER, time_of_buzzer);
 }
 
 void turn_off_buzzer(){
-	freq = 0;
-	time = 0;
+	pulse_width = 0;
+	time_of_buzzer = 0;
 	buzzer_flag = 0;
 	clear_timer(TIMER_BUZZER);
 }

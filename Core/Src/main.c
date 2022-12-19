@@ -324,19 +324,19 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 void control_buzzer(){
 	if(buzzer_flag == 1){
 		// pedestrian led is GREEN
-		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 1000 - freq);
+		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 1000 - pulse_width);
 		if(is_timer_timeout(TIMER_BUZZER)){
 			if(is_buzzer_active){
-				freq = 0;
+				pulse_width = 0;
 				is_buzzer_active = 0;
-				set_timer(TIMER_BUZZER,  time );
+				set_timer(TIMER_BUZZER,  time_of_buzzer );
 			}
 			else{
-				freq = 500;
-				if( time  > 50) time =  time - 50 ;
-				else time = 50;
+				pulse_width = 500;
+				if( time_of_buzzer  > 50) time_of_buzzer =  time_of_buzzer - 50 ;
+				else time_of_buzzer = 50;
 
-				set_timer(TIMER_BUZZER,  time );
+				set_timer(TIMER_BUZZER,  time_of_buzzer );
 				is_buzzer_active = 1;
 			}
 		}

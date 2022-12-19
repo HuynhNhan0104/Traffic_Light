@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  00020084  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00009821  00000000  00000000  000200ad  2**0
+ 12 .debug_info   000097fb  00000000  00000000  000200ad  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001bef  00000000  00000000  000298ce  2**0
+ 13 .debug_abbrev 00001bef  00000000  00000000  000298a8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000ab8  00000000  00000000  0002b4c0  2**3
+ 14 .debug_aranges 00000ab8  00000000  00000000  0002b498  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000998  00000000  00000000  0002bf78  2**3
+ 15 .debug_ranges 00000998  00000000  00000000  0002bf50  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00016f2a  00000000  00000000  0002c910  2**0
+ 16 .debug_macro  00016f2a  00000000  00000000  0002c8e8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000b81c  00000000  00000000  0004383a  2**0
+ 17 .debug_line   0000b81f  00000000  00000000  00043812  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00084680  00000000  00000000  0004f056  2**0
+ 18 .debug_str    00084696  00000000  00000000  0004f031  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000d36d6  2**0
+ 19 .comment      00000053  00000000  00000000  000d36c7  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000029f4  00000000  00000000  000d372c  2**2
+ 20 .debug_frame  000029f4  00000000  00000000  000d371c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1825,7 +1825,7 @@ void control_buzzer(){
  8000c88:	2b01      	cmp	r3, #1
  8000c8a:	d138      	bne.n	8000cfe <control_buzzer+0x7e>
 		// pedestrian led is GREEN
-		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 1000 - freq);
+		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 1000 - pulse_width);
  8000c8c:	4b20      	ldr	r3, [pc, #128]	; (8000d10 <control_buzzer+0x90>)
  8000c8e:	681b      	ldr	r3, [r3, #0]
  8000c90:	f5c3 727a 	rsb	r2, r3, #1000	; 0x3e8
@@ -1843,7 +1843,7 @@ void control_buzzer(){
  8000ca8:	681b      	ldr	r3, [r3, #0]
  8000caa:	2b00      	cmp	r3, #0
  8000cac:	d00c      	beq.n	8000cc8 <control_buzzer+0x48>
-				freq = 0;
+				pulse_width = 0;
  8000cae:	4b18      	ldr	r3, [pc, #96]	; (8000d10 <control_buzzer+0x90>)
  8000cb0:	2200      	movs	r2, #0
  8000cb2:	601a      	str	r2, [r3, #0]
@@ -1851,7 +1851,7 @@ void control_buzzer(){
  8000cb4:	4b18      	ldr	r3, [pc, #96]	; (8000d18 <control_buzzer+0x98>)
  8000cb6:	2200      	movs	r2, #0
  8000cb8:	601a      	str	r2, [r3, #0]
-				set_timer(TIMER_BUZZER,  time );
+				set_timer(TIMER_BUZZER,  time_of_buzzer );
  8000cba:	4b18      	ldr	r3, [pc, #96]	; (8000d1c <control_buzzer+0x9c>)
  8000cbc:	681b      	ldr	r3, [r3, #0]
  8000cbe:	4619      	mov	r1, r3
@@ -1864,11 +1864,11 @@ void control_buzzer(){
 	}
 }
  8000cc6:	e01f      	b.n	8000d08 <control_buzzer+0x88>
-				freq = 500;
+				pulse_width = 500;
  8000cc8:	4b11      	ldr	r3, [pc, #68]	; (8000d10 <control_buzzer+0x90>)
  8000cca:	f44f 72fa 	mov.w	r2, #500	; 0x1f4
  8000cce:	601a      	str	r2, [r3, #0]
-				if( time  > 50) time =  time - 50 ;
+				if( time_of_buzzer  > 50) time_of_buzzer =  time_of_buzzer - 50 ;
  8000cd0:	4b12      	ldr	r3, [pc, #72]	; (8000d1c <control_buzzer+0x9c>)
  8000cd2:	681b      	ldr	r3, [r3, #0]
  8000cd4:	2b32      	cmp	r3, #50	; 0x32
@@ -1879,11 +1879,11 @@ void control_buzzer(){
  8000cde:	4a0f      	ldr	r2, [pc, #60]	; (8000d1c <control_buzzer+0x9c>)
  8000ce0:	6013      	str	r3, [r2, #0]
  8000ce2:	e002      	b.n	8000cea <control_buzzer+0x6a>
-				else time = 50;
+				else time_of_buzzer = 50;
  8000ce4:	4b0d      	ldr	r3, [pc, #52]	; (8000d1c <control_buzzer+0x9c>)
  8000ce6:	2232      	movs	r2, #50	; 0x32
  8000ce8:	601a      	str	r2, [r3, #0]
-				set_timer(TIMER_BUZZER,  time );
+				set_timer(TIMER_BUZZER,  time_of_buzzer );
  8000cea:	4b0c      	ldr	r3, [pc, #48]	; (8000d1c <control_buzzer+0x9c>)
  8000cec:	681b      	ldr	r3, [r3, #0]
  8000cee:	4619      	mov	r1, r3
@@ -1935,19 +1935,19 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 	...
 
 08000d2c <turn_on_buzzer>:
-
-
+int safe_time = 5000;
+int time_of_buzzer = 0;
 
 int is_buzzer_active= 1;
 
 void turn_on_buzzer(){
  8000d2c:	b580      	push	{r7, lr}
  8000d2e:	af00      	add	r7, sp, #0
-	freq = 500;
+	pulse_width = 500;
  8000d30:	4b09      	ldr	r3, [pc, #36]	; (8000d58 <turn_on_buzzer+0x2c>)
  8000d32:	f44f 72fa 	mov.w	r2, #500	; 0x1f4
  8000d36:	601a      	str	r2, [r3, #0]
-	time = 300;
+	time_of_buzzer = 300;
  8000d38:	4b08      	ldr	r3, [pc, #32]	; (8000d5c <turn_on_buzzer+0x30>)
  8000d3a:	f44f 7296 	mov.w	r2, #300	; 0x12c
  8000d3e:	601a      	str	r2, [r3, #0]
@@ -1955,7 +1955,7 @@ void turn_on_buzzer(){
  8000d40:	4b07      	ldr	r3, [pc, #28]	; (8000d60 <turn_on_buzzer+0x34>)
  8000d42:	2201      	movs	r2, #1
  8000d44:	601a      	str	r2, [r3, #0]
-	set_timer(TIMER_BUZZER, time);
+	set_timer(TIMER_BUZZER, time_of_buzzer);
  8000d46:	4b05      	ldr	r3, [pc, #20]	; (8000d5c <turn_on_buzzer+0x30>)
  8000d48:	681b      	ldr	r3, [r3, #0]
  8000d4a:	4619      	mov	r1, r3
@@ -1974,11 +1974,11 @@ void turn_on_buzzer(){
 void turn_off_buzzer(){
  8000d64:	b580      	push	{r7, lr}
  8000d66:	af00      	add	r7, sp, #0
-	freq = 0;
+	pulse_width = 0;
  8000d68:	4b06      	ldr	r3, [pc, #24]	; (8000d84 <turn_off_buzzer+0x20>)
  8000d6a:	2200      	movs	r2, #0
  8000d6c:	601a      	str	r2, [r3, #0]
-	time = 0;
+	time_of_buzzer = 0;
  8000d6e:	4b06      	ldr	r3, [pc, #24]	; (8000d88 <turn_off_buzzer+0x24>)
  8000d70:	2200      	movs	r2, #0
  8000d72:	601a      	str	r2, [r3, #0]
