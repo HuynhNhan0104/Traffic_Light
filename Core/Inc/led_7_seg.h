@@ -8,7 +8,7 @@
 #ifndef INC_LED_7_SEG_H_
 #define INC_LED_7_SEG_H_
 #include "global.h"
-#define NUMBER_OF_BUFFER 																4
+#define NUMBER_OF_BUFFER 																2
 extern int buffer_output [NUMBER_OF_BUFFER];
 
 

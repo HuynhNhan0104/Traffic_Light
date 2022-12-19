@@ -22,6 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdio.h"
+#include "string.h"
 #include "button.h"
 #include "timer.h"
 #include "traffic_led.h"
@@ -49,6 +51,8 @@
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 
+UART_HandleTypeDef huart2;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -58,14 +62,16 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+char str[40];
 void control_buzzer();
+void send_uart();
 /* USER CODE END 0 */
 
 /**
@@ -98,6 +104,7 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 HAL_TIM_Base_Start_IT(&htim2);
 HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
@@ -115,8 +122,8 @@ mode = INIT_SYSTEM;
 	  fsm_for_button();
 	  fsm_system_run();
 	  fsm_pedestrian_run();
-	 control_buzzer();
-
+	  control_buzzer();
+	  send_uart();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -266,6 +273,39 @@ static void MX_TIM3_Init(void)
 }
 
 /**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 9600;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -346,6 +386,9 @@ void control_buzzer(){
 		//turn_of_buzzer
 		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 1000);
 	}
+}
+void send_uart(){
+	HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "!7SEG:%d\n#", buffer_output[0]), 50);
 }
 /* USER CODE END 4 */
 
