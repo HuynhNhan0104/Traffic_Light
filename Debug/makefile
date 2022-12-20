@@ -64,8 +64,8 @@ all: main-build
 main-build: Final_MCU_Project.elf secondary-outputs
 
 # Tool invocations
-Final_MCU_Project.elf: $(OBJS) $(USER_OBJS) D:\VXL_VDK\BTL\STM32F103RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Final_MCU_Project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\VXL_VDK\BTL\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Final_MCU_Project.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Final_MCU_Project.elf: $(OBJS) $(USER_OBJS) C:\Users\NHAN\OneDrive\Desktop\MCU_FINAL_PROJECT\STM32F103RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Final_MCU_Project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\NHAN\OneDrive\Desktop\MCU_FINAL_PROJECT\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Final_MCU_Project.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -388,7 +388,7 @@ void control_buzzer(){
 	}
 }
 void send_uart(){
-	HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "!7SEG:%d\n#", buffer_output[0]), 50);
+	HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "!7SEG:%d , %d\n#", buffer_output[0], buffer_output[1]), 50);
 }
 /* USER CODE END 4 */
 
