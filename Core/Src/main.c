@@ -123,7 +123,7 @@ mode = INIT_SYSTEM;
 	  fsm_system_run();
 	  fsm_pedestrian_run();
 	  control_buzzer();
-	  send_uart();
+	 send_uart();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -364,7 +364,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 void control_buzzer(){
 	if(buzzer_flag == 1){
 		// pedestrian led is GREEN
-		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 1000 - pulse_width);
+		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1,  pulse_width);
 		if(is_timer_timeout(TIMER_BUZZER)){
 			if(is_buzzer_active){
 				pulse_width = 0;
@@ -384,11 +384,11 @@ void control_buzzer(){
 	else{
 		// pedestrian led is RED
 		//turn_of_buzzer
-		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 1000);
+		__HAL_TIM_SetCompare (&htim3,TIM_CHANNEL_1, 0);
 	}
 }
 void send_uart(){
-	HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "!7SEG:%d , %d\n#", buffer_output[0], buffer_output[1]), 50);
+	HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "!7SEG1: %d,  7SEG2: %d#  \r \n",buffer_output[0], buffer_output[1]), 50);
 }
 /* USER CODE END 4 */
 
@@ -399,6 +399,7 @@ void send_uart(){
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
+
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)

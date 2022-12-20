@@ -12,6 +12,7 @@
 extern int buffer_output [NUMBER_OF_BUFFER];
 
 
+
 void update_buffer_high(int number);
 void update_buffer_low(int number);
 

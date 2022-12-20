@@ -1,2 +1,2 @@
-led_7_seg.c:11:6:update_buffer_high	16	static
-led_7_seg.c:15:6:update_buffer_low	16	static
+led_7_seg.c:14:6:update_buffer_high	16	static
+led_7_seg.c:19:6:update_buffer_low	16	static
